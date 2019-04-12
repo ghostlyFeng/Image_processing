@@ -15,8 +15,8 @@ from matplotlib import pyplot as plt
 def json2gt_word( jpath):
     '''
     将一个json文件中的整行坐标和单字坐标保存在buff中
-    :param jpath:
-    :return:
+    :param jpath:json文件路径（str）
+    :return:标签坐标（dict）
     '''
     jlist = json.load( open(jpath, "r") ) # jlist is : (remark in lengthN), char1, char2, charN
     buff = []
@@ -34,8 +34,8 @@ def json2gt_word( jpath):
 def json2gt_line( jpath):
     '''
     将一个json文件中的整行坐标保存在buff中
-    :param jpath:
-    :return:
+    :param jpath:json文件路径（str）
+    :return:标签坐标（dict）
     '''
     jlist = json.load( open(jpath, "r") ) # jlist is : (remark in lengthN), char1, char2, charN
     buff = []
@@ -48,10 +48,10 @@ def json2gt_line( jpath):
 def draw_path2img(img, gts, ignore_first=False):
     '''
     将边界框标注在图像上面并显示
-    :param img_path:
-    :param json_path:
-    :param ignore_first:
-    :return:
+    :param img_path:图像路径（str）
+    :param gts:ground truth坐标（list）
+    :param ignore_first:是否忽略第一个值（bool）
+    :return:画好目标框的图像
     '''
     if ignore_first:
         gts = gts[1:]
@@ -70,8 +70,8 @@ def draw_path2img(img, gts, ignore_first=False):
 def load_dataset_path(root) :
     '''
     从数据集根目录下获取所有图像文件和json文件的文件名并输出
-    :param root:
-    :return:
+    :param root:数据集根目录（str）
+    :return:图像路径列表和json文件列表（list）
     '''
     join = os.path.join
     jpathes = glob.glob(join( root, "jsons", "*.json" ))
@@ -84,10 +84,10 @@ def load_dataset_path(root) :
 def crop_img_according_to_gts(im, gts, ignore_first=False):
     '''
     将图像根据ground truth进行裁剪
-    :param im:
-    :param gts:
+    :param im:输入图像
+    :param gts:图像中目标的ground truth坐标（list）
     :param ignore_first:
-    :return:
+    :return:裁剪后的图像， 坐标值
     示例：
         j_path = "/data/houfeng/datasets/ocr/jsons/0--19e79366ef48fa0f4b9bcdfc80dd87fd.json"
         i_path = "/data/houfeng/datasets/ocr/images/0--19e79366ef48fa0f4b9bcdfc80dd87fd.bmp"
